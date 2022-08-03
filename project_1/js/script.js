@@ -17,7 +17,7 @@ const personalMovieDB = {
 
     rememberMyFilms: function(){
         for (let i = 0; i < 2; i++){
-            const a = prompt('Один из последних просмотренных фильмов?','');
+            const a = prompt('Один из последних просмотренных фильмов?','').trim();
             const b = prompt('На сколько оцените его?','');
         
             if (a == '' || a.length > 50 || b == ''){
@@ -51,15 +51,6 @@ const personalMovieDB = {
     },
     writeYourGenres: function(){
         for (let i = 0; i < 1; i++){
-            // const number = i;
-            // let genre = prompt(`Ваш любимый жанр под номером ${number+1}`,"");
-            // if (genre == '' || genre == null){
-            //     console.log('Вы ввели некорректные данные или не ввели их вообще');
-            //     i--;
-            // }
-            // else{
-            //     personalMovieDB.genres[i] = genre;
-            // }
             let genres = prompt(`Введите ваши любимые жанры через запятую`);
             if (genres == '' || genres == null){
                 console.log('Вы ввели некорректные данные или не ввели их вообще');
@@ -86,5 +77,5 @@ const personalMovieDB = {
     }
 };
 
-personalMovieDB.writeYourGenres();
-
+personalMovieDB.rememberMyFilms();
+console.log(personalMovieDB);
