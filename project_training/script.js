@@ -1,76 +1,27 @@
-let students = {
-    js: [{
-        name: 'John',
-        progress: 100
-    }, {
-        name: 'Ivan',
-        progress: 60
-    }],
-    html: {
-        basic: [{
-            name: 'Peter',
-            progress: 20
-        }, {
-            name: 'Ann',
-            progress: 18
-        }],
+"use strict";
 
-        pro: [{
-            name: 'Sam',
-            progress: 10
-        }],
+const btns = document.querySelectorAll('button'),
+      wrapper = document.querySelector('.btn-block');
 
-        some: {
+// console.log(btns[0].classList.add('red'));
+// console.log(btns[0].classList.remove('blue'));
+// console.log(btns[0].classList.remove('some'));
 
-        }
+btns[0].addEventListener('click', () => {
+    // if (!btns[1].classList.contains('red')){
+    //     btns[1].classList.add('red');
+    // } else{
+    //     btns[1].classList.remove('red');
+    // }
+    btns[1].classList.toggle('red');
+});
+
+wrapper.addEventListener('click', (event) => {
+    if (event.target && event.target.tagName == "BUTTON") {
+        console.log("hELLO");
     }
-};
+});
 
-function getTotalProgressByIteration(data){
-    let total = 0;
-    let students = 0;
-
-    for (let course of Object.values(data)){
-        if (Array.isArray(course)){
-            students += course.length;
-            for (let i = 0; i < course.length; i++){
-                total += course[i].progress;
-            }
-        }
-        else{
-            for (let subCourse of Object.values(course)){
-                students += subCourse.length;
-                for (let i = 0; i < subCourse.length; i++){
-                    total += subCourse[i].progress;
-                }
-            }
-        }
-    }
-
-    return total / students;
-}
-
-function getTotalProgressByRecursion(data){
-    if (Array.isArray(data)){
-        let total = 0;
-
-        for (let i = 0; i < data.length; i++){
-            total += data[i].progress;
-        }
-
-        return [total, data.length];
-    } else{
-        let total = [0, 0];
-
-        for (let subData of Object.values(data)) {
-            const subDataArr = getTotalProgressByRecursion(subData);
-            total[0] += subDataArr[0];
-            total[1] += subDataArr[1];
-        }
-
-        return total;
-    }
-}
-
-const result = getTotalProgressByRecursion(students);
-console.log(result[0]/ result[1]);
+const btn = document.createElement('button');
+btn.classList.add('red');
+wrapper.append(btn);
