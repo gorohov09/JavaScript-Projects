@@ -51,6 +51,16 @@ window.addEventListener('DOMContentLoaded', () => {
         const now = new Date().getTime(); //Получим кол-во мл.с у пользователя(сейчас)
         const time = t - now;
 
+        if (time < 0){
+            return {
+                'total': 0,
+                'days': 0,
+                'hours': 0,
+                'minutes': 0,
+                'seconds': 0
+            };
+        }
+
         const days = Math.floor(time / (1000 * 60 * 60 * 24)), //Получаем кол-во суток которое осталось до дедлайна
               hours = Math.floor((time / (1000 * 60 * 60)) % 24),
               minutes = Math.floor((time / 1000 / 60) % 60),
@@ -75,8 +85,9 @@ window.addEventListener('DOMContentLoaded', () => {
         
         updateClock(); //Запустим сами заранее, чтобы установить нужную дату
 
+        //Служебная функция для установки 0, например: 5 часов -> 05 часов
         function getZeroInDate(num) {
-            if (num >= 0 && num < 10)
+            if (num > 0 && num < 10)
                 return `0${num}`;
             else
                 return `${num}`;
@@ -96,7 +107,7 @@ window.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    const deadline = '2022-09-27'; //Дедлайн
+    const deadline = '2023-09-27'; //Дедлайн
     setClock('.timer', deadline);
 
 });
