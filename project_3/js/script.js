@@ -75,7 +75,7 @@ window.addEventListener('DOMContentLoaded', () => {
         
         updateClock(); //Запустим сами заранее, чтобы установить нужную дату
 
-        function setZeroInDate(num) {
+        function getZeroInDate(num) {
             if (num >= 0 && num < 10)
                 return `0${num}`;
             else
@@ -85,8 +85,8 @@ window.addEventListener('DOMContentLoaded', () => {
         function updateClock() {
             const t = getTimeRemaining(endTime);
 
-            days.innerHTML = setZeroInDate(t.days);
-            hours.innerHTML = setZeroInDate(t.hours);
+            days.innerHTML = getZeroInDate(t.days);
+            hours.innerHTML = getZeroInDate(t.hours);
             minutes.innerHTML = t.minutes;
             seconds.innerHTML = t.seconds;
 
