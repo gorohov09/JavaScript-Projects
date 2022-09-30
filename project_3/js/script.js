@@ -75,6 +75,7 @@ window.addEventListener('DOMContentLoaded', () => {
         };
     }
 
+    //Установка времени
     function setClock(selector, endTime) {
         const timer = document.querySelector(selector),
             days = timer.querySelector('#days'),
@@ -109,6 +110,63 @@ window.addEventListener('DOMContentLoaded', () => {
 
     const deadline = '2023-09-27'; //Дедлайн
     setClock('.timer', deadline);
+
+    //Modal
+
+    //Получение элементов с верстки
+    const btnsOpenModal = document.querySelectorAll('[data-modal]'),
+          modal = document.querySelector('.modal'),
+          btnCloseModal = document.querySelector('[data-close]');
+
+    //Функция, для открывания модального окна
+    const openModal = (e) => {
+        modal.classList.toggle('show');
+        document.body.style.overflow = 'hidden';
+        clearInterval(modalTimerId);
+    };
+
+    //Функция для закрывания модального окна
+    const closeModal = () => {
+        // modal.classList.add('hide');
+        // modal.classList.remove('show');
+        modal.classList.toggle('show');
+        document.body.style.overflow = '';
+    };
+
+    //Назначение кнопкам события - открытие модального окна
+    btnsOpenModal.forEach(btn => {
+        btn.addEventListener('click', openModal);
+    });
+
+    //Назначение кнопке события - закрытие модального окна
+    btnCloseModal.addEventListener('click', closeModal);
+
+    //Закрытие модального окна, если кликнули по пустой области(вне диалогового кона)
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            closeModal();
+        }
+    });
+
+    //Закрытие модального окна при клике на ESC
+    document.addEventListener('keydown', (e) => {
+        if (e.code === 'Escape' && modal.classList.contains('show')){
+            closeModal();
+        }
+    });
+
+    //Открытие модального окна, через какое-то время
+    const modalTimerId = setTimeout(openModal, 5000);
+
+    function showModalByScroll() {
+        if (window.pageYOffset + document.documentElement.clientHeight >= document.documentElement.scrollHeight - 1){
+            openModal();
+            window.removeEventListener('scroll', showModalByScroll); //Удаление события
+        }
+    }
+
+    //Открытие модального окна, когда долистали до конца
+    window.addEventListener('scroll', showModalByScroll); //Событие выполняется один раз
 
 });
 
