@@ -384,5 +384,23 @@ window.addEventListener('DOMContentLoaded', () => {
         plusSlides(1);
     });
 
+    // const getMyApi = async (url) => {
+    //     const res = await fetch(url);
+
+    //     if (!res.ok){
+    //         throw new Error(`Could not fetch ${url}, status: ${res.status}`);
+    //     }
+
+    //     return await res.json();
+    // };
+
+    // getMyApi('http://localhost:5264/api/employees/all')
+    //     .then(data => console.log(data));
+
+    // // fetch('http://localhost:8080/example', {
+    // //         mode: 'no-cors',
+    // //         method: "post",
+    // res.setHeader('Access-Control-Allow-Origin', 'http://localhost:4200');
+
 });
 
