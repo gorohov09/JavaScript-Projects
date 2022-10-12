@@ -338,11 +338,13 @@ window.addEventListener('DOMContentLoaded', () => {
           prev = document.querySelector('.offer__slider-prev'),
           next = document.querySelector('.offer__slider-next'),
           total = document.querySelector('#total'),
-          current = document.querySelector('#current');
+          current = document.querySelector('#current'),
+          slidesWrapper = document.querySelector('.offer__slider-wrapper'), //Главная обертка для слайдов
+          slidesField = document.querySelector('.offer__slider-inner'), //Поле с нашими слайдами
+          width = window.getComputedStyle(slidesWrapper).width; 
 
     let slideIndex = 1;
-
-    showSlides(1);
+    let offset = 0;
 
     if (slides.length < 10){
         total.textContent = `0${slides.length}`;
@@ -350,39 +352,52 @@ window.addEventListener('DOMContentLoaded', () => {
     else{
         total.textContent = `${slides.length}`;
     }
+    showPositionSlide(slideIndex);
 
-    function showSlides(n) {
-        if (n > slides.length){ //Если ушли в правую границу
-            slideIndex = 1;
-        }
-        
-        if (n < 1){
-            slideIndex = slides.length;
-        }
+    slidesField.style.width = 100 * slides.length + '%';
+    slidesField.style.display = 'flex';
+    slidesField.style.transition = '0.5s all';
 
-        slides.forEach(item => item.style.display = 'none');
-        slides[slideIndex - 1].style.display = 'block';
+    slidesWrapper.style.overflow = 'hidden';
 
-        if (slides.length < 10){
-            current.textContent = `0${slideIndex}`;
-        }
-        else{
-            current.textContent = `${slideIndex}`;
-        }
-        
-    }
-
-    function plusSlides(n) {
-        showSlides(slideIndex += n);
-    }
-
-    prev.addEventListener('click', () => {
-        plusSlides(-1);
+    slides.forEach(slide => {
+        slide.style.width = width;
     });
 
     next.addEventListener('click', () => {
-        plusSlides(1);
+        if (offset == +width.slice(0, width.length - 2) * (slides.length - 1)){
+            offset = 0;
+            slideIndex = 1;
+        } else {
+            offset += +width.slice(0, width.length - 2);
+            slideIndex++;
+        }
+
+        slidesField.style.transform = `translateX(-${offset}px)`;
+        showPositionSlide(slideIndex);
     });
+
+    prev.addEventListener('click', () => {
+        if (offset == 0){
+            offset = +width.slice(0, width.length - 2) * (slides.length - 1);
+            slideIndex = slides.length;
+        } else {
+            offset -= +width.slice(0, width.length - 2);
+            slideIndex--;
+        }
+
+        slidesField.style.transform = `translateX(-${offset}px)`;
+        showPositionSlide(slideIndex);
+    });
+
+    function showPositionSlide(n){
+        if (n < 10){
+            current.textContent = `0${n}`;
+        }
+        else{
+            current.textContent = `${n}`;
+        }
+    }
 
     // const getMyApi = async (url) => {
     //     const res = await fetch(url);
