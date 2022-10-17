@@ -236,21 +236,6 @@ window.addEventListener('DOMContentLoaded', () => {
             });
         });
 
-    //Используем библиотеку axios
-    // axios.get('http://localhost:3000/menu')
-    //     .then(data => {
-    //         data.data.forEach(({img, altimg, title, descr, price}) => {
-    //             new MenuCard(
-    //                 img,
-    //                 altimg,
-    //                 title,
-    //                 descr,
-    //                 price,
-    //                 '.menu .container'
-    //             ).render();
-    //         });
-    //     });
-
     //Forms
     
     //Получение форм
@@ -385,11 +370,11 @@ window.addEventListener('DOMContentLoaded', () => {
     showPositionSlideAndDots(slideIndex);
 
     next.addEventListener('click', () => {
-        if (offset == +width.slice(0, width.length - 2) * (slides.length - 1)){
+        if (offset == replaceNotNumber(width) * (slides.length - 1)){
             offset = 0;
             slideIndex = 1;
         } else {
-            offset += +width.slice(0, width.length - 2);
+            offset += replaceNotNumber(width);
             slideIndex++;
         }
 
@@ -399,10 +384,10 @@ window.addEventListener('DOMContentLoaded', () => {
 
     prev.addEventListener('click', () => {
         if (offset == 0){
-            offset = +width.slice(0, width.length - 2) * (slides.length - 1);
+            offset = replaceNotNumber(width) * (slides.length - 1);
             slideIndex = slides.length;
         } else {
-            offset -= +width.slice(0, width.length - 2);
+            offset -= replaceNotNumber(width);
             slideIndex--;
         }
 
@@ -422,6 +407,10 @@ window.addEventListener('DOMContentLoaded', () => {
         dots[slideIndex - 1].style.opacity = 1;
     }
 
+    function replaceNotNumber(str) {
+        return +str.replace(/\D/g, '');
+    }
+
     //Навигация по нажатию на определенную точку на слайдере
     dots.forEach(dot => {
         dot.addEventListener('click', (e) => {
@@ -435,24 +424,6 @@ window.addEventListener('DOMContentLoaded', () => {
             showPositionSlideAndDots(slideTo);
         });
     });
-
-    // const getMyApi = async (url) => {
-    //     const res = await fetch(url);
-
-    //     if (!res.ok){
-    //         throw new Error(`Could not fetch ${url}, status: ${res.status}`);
-    //     }
-
-    //     return await res.json();
-    // };
-
-    // getMyApi('http://localhost:5264/api/employees/all')
-    //     .then(data => console.log(data));
-
-    // // fetch('http://localhost:8080/example', {
-    // //         mode: 'no-cors',
-    // //         method: "post",
-    // res.setHeader('Access-Control-Allow-Origin', 'http://localhost:4200');
 
 });
 
