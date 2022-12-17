@@ -1,4 +1,4 @@
-function timer() {
+function timer(timerSelector, deadline) {
     //Получение информации для отображения
     function getTimeRemaining(endtime){
         const t = Date.parse(endtime); //Получим колличество мл.с нашего дедлайна
@@ -62,8 +62,7 @@ function timer() {
         }
     }
 
-    const deadline = '2023-09-27'; //Дедлайн
-    setClock('.timer', deadline);
+    setClock(timerSelector, deadline);
 }
 
 export default timer;
